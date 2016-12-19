@@ -1,0 +1,22 @@
+---
+# tasks file for roles/jdk
+- name: install jdk from 37dz repo
+  yum:
+    name: "{{ jdk_version }}"
+    state: present
+    enable: 37dz
+
+- name: configure JAVA_HOME environment varibale
+  lineinfile:
+    dest: /etc/profile
+    line: JAVA_HOME=/usr/java/default
+    regexp: ^JAVA_HOME=.*$
+    state: present
+
+- name: configure PATH environment variable
+  lineinfile:
+    dest: /etc/profile
+    line: PATH=$JAVA_HOME/bin:$PATH
+    insertafter: yes
+    regexp: $PATH=.*:$PATH$
+    state: present
