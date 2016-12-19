@@ -4,7 +4,7 @@
   yum:
     name: "{{ jdk_version }}"
     state: present
-    enable: 37dz
+    enablerepo: 37dz
 
 - name: configure JAVA_HOME environment varibale
   lineinfile:
@@ -17,6 +17,5 @@
   lineinfile:
     dest: /etc/profile
     line: PATH=$JAVA_HOME/bin:$PATH
-    insertafter: yes
-    regexp: $PATH=.*:$PATH$
+    regexp: ^PATH=\$JAVA_HOME/bin:[.:]*\$PATH$
     state: present
